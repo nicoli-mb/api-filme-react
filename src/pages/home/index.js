@@ -7,6 +7,7 @@ function Home() {
   const [movies, setMovies] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedTrailer, setSelectedTrailer] = useState(null);
+  const [selectedMovie, setSelectedMovie] = useState(null);
   const [loading, setLoading] = useState(false);
   const KEY = process.env.REACT_APP_KEY;
 
@@ -41,6 +42,14 @@ function Home() {
 
   const closeTrailer = () => {
     setSelectedTrailer(null);
+  };
+
+  const openMovieDetails = (movie) => {
+    setSelectedMovie(movie);
+  };
+
+  const closeMovieDetails = () => {
+    setSelectedMovie(null);
   };
 
   useEffect(() => {
@@ -121,11 +130,9 @@ function Home() {
                     ▶ Trailer
                   </TrailerButton>
                   
-                  <Link to={`/movie/${movie.id}`}>
-                    <DetailsButton>
-                      👁 Detalhes
-                    </DetailsButton>
-                  </Link>
+                  <DetailsButton onClick={() => openMovieDetails(movie)}>
+                    👁 Detalhes
+                  </DetailsButton>
                 </ActionButtons>
               </MovieInfo>
             </MovieCard>
@@ -153,6 +160,60 @@ function Home() {
             
             <div className="trailer-footer">
               <button onClick={closeTrailer}>Fechar</button>
+            </div>
+          </TrailerOverlay>
+        </TrailerModal>
+      )}
+
+      {/* Modal de Detalhes do Filme */}
+      {selectedMovie && (
+        <TrailerModal onClick={closeMovieDetails}>
+          <TrailerOverlay onClick={(e) => e.stopPropagation()}>
+            <div className="movie-details">
+              <div className="movie-details-header">
+                <h2>{selectedMovie.title}</h2>
+                <button onClick={closeMovieDetails}>×</button>
+              </div>
+              
+              <div className="movie-details-content">
+                <div className="movie-details-poster">
+                  <img
+                    src={`${imagePath}${selectedMovie.poster_path}`}
+                    alt={selectedMovie.title}
+                  />
+                </div>
+                
+                <div className="movie-details-info">
+                  <div className="movie-stats">
+                    <span className="rating">⭐ {selectedMovie.vote_average?.toFixed(1)}/10</span>
+                    <span className="release-date">📅 {new Date(selectedMovie.release_date).toLocaleDateString('pt-BR')}</span>
+                    <span className="popularity">🔥 {Math.round(selectedMovie.popularity)} views</span>
+                  </div>
+                  
+                  <div className="movie-overview">
+                    <h3>Sinopse</h3>
+                    <p>{selectedMovie.overview || "Sinopse não disponível para este filme."}</p>
+                  </div>
+                  
+                  <div className="movie-actions">
+                    <button 
+                      className="action-btn trailer-btn"
+                      onClick={() => {
+                        closeMovieDetails();
+                        fetchTrailer(selectedMovie.id);
+                      }}
+                    >
+                      ▶ Assistir Trailer
+                    </button>
+                    <button 
+                      className="action-btn close-btn"
+                      onClick={closeMovieDetails}
+                    >
+                      Fechar
+                    </button>
+                  </div>
+                </div>
+              </div>
             </div>
           </TrailerOverlay>
         </TrailerModal>

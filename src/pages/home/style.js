@@ -385,6 +385,193 @@ export const TrailerOverlay = styled.div`
       }
     }
   }
+
+  /* Estilos para o Modal de Detalhes */
+  .movie-details {
+    max-height: 85vh;
+    overflow-y: auto;
+    
+    &::-webkit-scrollbar {
+      width: 8px;
+    }
+    
+    &::-webkit-scrollbar-track {
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 10px;
+    }
+    
+    &::-webkit-scrollbar-thumb {
+      background: rgba(168, 85, 247, 0.5);
+      border-radius: 10px;
+    }
+  }
+
+  .movie-details-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    
+    h2 {
+      color: white;
+      font-size: 2rem;
+      font-weight: 700;
+      margin: 0;
+      background: linear-gradient(135deg, #a855f7, #ec4899);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    
+    button {
+      background: none;
+      border: none;
+      color: rgba(255, 255, 255, 0.7);
+      font-size: 2rem;
+      cursor: pointer;
+      transition: color 0.3s ease;
+      
+      &:hover {
+        color: white;
+      }
+    }
+  }
+
+  .movie-details-content {
+    display: flex;
+    gap: 2rem;
+    
+    @media (max-width: 768px) {
+      flex-direction: column;
+    }
+  }
+
+  .movie-details-poster {
+    flex-shrink: 0;
+    
+    img {
+      width: 250px;
+      height: 375px;
+      object-fit: cover;
+      border-radius: 16px;
+      border: 2px solid rgba(255, 255, 255, 0.2);
+      
+      @media (max-width: 768px) {
+        width: 200px;
+        height: 300px;
+        margin: 0 auto;
+        display: block;
+      }
+    }
+  }
+
+  .movie-details-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .movie-stats {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    
+    span {
+      background: rgba(255, 255, 255, 0.1);
+      padding: 0.5rem 1rem;
+      border-radius: 20px;
+      color: white;
+      font-size: 0.9rem;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+    
+    .rating {
+      background: linear-gradient(135deg, rgba(255, 193, 7, 0.2), rgba(255, 152, 0, 0.2));
+      border-color: rgba(255, 193, 7, 0.3);
+    }
+    
+    .release-date {
+      background: linear-gradient(135deg, rgba(33, 150, 243, 0.2), rgba(3, 169, 244, 0.2));
+      border-color: rgba(33, 150, 243, 0.3);
+    }
+    
+    .popularity {
+      background: linear-gradient(135deg, rgba(255, 87, 34, 0.2), rgba(244, 67, 54, 0.2));
+      border-color: rgba(255, 87, 34, 0.3);
+    }
+  }
+
+  .movie-overview {
+    h3 {
+      color: white;
+      font-size: 1.3rem;
+      font-weight: 700;
+      margin: 0 0 1rem 0;
+    }
+    
+    p {
+      color: rgba(255, 255, 255, 0.8);
+      font-size: 1rem;
+      line-height: 1.7;
+      margin: 0;
+    }
+  }
+
+  .movie-actions {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1rem;
+    
+    @media (max-width: 568px) {
+      flex-direction: column;
+    }
+  }
+
+  .action-btn {
+    flex: 1;
+    padding: 1rem 1.5rem;
+    border: none;
+    border-radius: 16px;
+    font-weight: 600;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    
+    &:hover {
+      transform: translateY(-2px);
+    }
+    
+    &.trailer-btn {
+      background: linear-gradient(135deg, #a855f7, #ec4899);
+      color: white;
+      
+      &:hover {
+        box-shadow: 0 10px 25px rgba(168, 85, 247, 0.4);
+      }
+    }
+    
+    &.close-btn {
+      background: rgba(255, 255, 255, 0.1);
+      color: white;
+      border: 2px solid rgba(255, 255, 255, 0.2);
+      
+      &:hover {
+        background: rgba(255, 255, 255, 0.2);
+        border-color: rgba(255, 255, 255, 0.4);
+      }
+    }
+  }
 `;
 
 export const LoadingSpinner = styled.div`
